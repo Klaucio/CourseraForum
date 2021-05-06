@@ -1,0 +1,27 @@
+.main-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+label{
+    margin: 0 10px;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+}
+
+.login{
+    padding: 20px;
+    background: #d8d8d8;
+}
+
+.login form input{
+    width: 300px;
+    height: 30px;
+    border-radius: 5px;
+    margin: 5px;
+}
+
