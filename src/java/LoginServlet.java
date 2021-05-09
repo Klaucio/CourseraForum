@@ -25,12 +25,17 @@ public class LoginServlet extends HttpServlet {
             String password = request.getParameter("password");
             
             UsuariosDAO usuariosDAO= new UsuariosDAO();
-            boolean found = usuariosDAO.login(username, password);
             
-            if(found){
-                response.sendRedirect(request.getContextPath() + "/welcome.jsp");
-            } else {
-                response.sendRedirect(request.getContextPath() + "/signup.jsp");
+            try{
+                String name = usuariosDAO.login(username, password);
+                if(name != null){
+                    request.setAttribute("nome", name);
+                    request.getRequestDispatcher("welcome.jsp").forward(request, response);
+                }
+//                response.sendRedirect(request.getContextPath() + "/welcome.jsp");
+            } catch (Exception ex){
+                request.setAttribute("erro", ex.getMessage());
+                request.getRequestDispatcher("signup.jsp").forward(request, response);
             }
 
         } catch (Exception e) {

@@ -12,6 +12,7 @@
         <title>Sign up</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>Registe-se</h1>
+        <h3>${erro}</h3>
     </body>
 </html>

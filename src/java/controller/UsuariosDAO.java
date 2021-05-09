@@ -15,14 +15,14 @@ import java.sql.ResultSet;
  */
 public class UsuariosDAO {
     
-    public boolean login(String username, String password){
+    public String login(String username, String password) throws Exception{
         try{
-        String sql = "SELECT login, name "
-                + "FROM usuario "
-                + "WHERE login = ? and password = ?";
-        
-        DatabaseConnection databaseConnection = new DatabaseConnection();
-        Connection conn = databaseConnection.connect();
+            String sql = "SELECT login, name "
+                    + "FROM usuario "
+                    + "WHERE login = ? and password = ?";
+
+            DatabaseConnection databaseConnection = new DatabaseConnection();
+            Connection conn = databaseConnection.connect();
         
             PreparedStatement stm = conn.prepareStatement(sql);
             stm.setString(1, username);
@@ -31,13 +31,14 @@ public class UsuariosDAO {
             
             ResultSet rs = stm.executeQuery();
             
-            while (rs.next()) {
-                return true;
+            if (rs.next()) {
+                return rs.getString("name");
+            } else {
+                throw new Exception("Nao foi possivel encontrar o usuario");
             }
-        }catch(Exception e){
-            return false;
+        } catch(Exception e) {
+            throw new RuntimeException(e);
         }
-        return false;
     }
     
 }
